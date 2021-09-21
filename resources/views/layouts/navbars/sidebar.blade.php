@@ -32,19 +32,19 @@
                 <span class="sidebar-normal">{{ __('User profile') }} </span>
               </a>
             </li>
-            <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
+            {{-- <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('user.index') }}">
                 <span class="sidebar-mini"> UM </span>
                 <span class="sidebar-normal"> {{ __('User Management') }} </span>
               </a>
-            </li>
+            </li> --}}
           </ul>
         </div>
       </li>
-      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('table') }}">
+      <li class="nav-item{{ $activePage == 'articles.index' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('articles.index') }}">
           <i class="material-icons">article</i>
-            <p>{{ __('News') }}</p>
+            <p>{{ __('Articles') }}</p>
         </a>
       </li>
       {{-- <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
