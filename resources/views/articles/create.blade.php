@@ -10,7 +10,7 @@
                         <h4 class="card-title ">Create new article</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('articles.store') }}" method="POST">
+                        <form enctype="multipart/form-data" action="{{ route('articles.store') }}" method="POST">
                             @csrf
                             <div class="form-group bmd-form-group my-5">
                                 <label class="bmd-label-floating">Article Heading : </label>
@@ -26,6 +26,17 @@
                                     <span class="text-danger error">{{ $errors->first('description') }}</span>
                                 @endif
                             </div>
+
+                            <div class="form-group my-5">
+                                <label>Header Image :</label>
+                               <input type="file" accept=".jpg, .png, .jpeg" class="form-control" style="opacity: 1; position: unset;" name="image">
+                                @if ($errors->has('image'))
+                                    <span class="text-danger error">{{ $errors->first('image') }}</span>
+                                @endif
+                            </div>
+
+                            
+
                             <div class="form-group my-5">
                                 <label class="bmd-label-floating">Status</label>
                                 <select name="status" id="status" class="form-control">

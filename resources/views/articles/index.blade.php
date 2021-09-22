@@ -14,39 +14,31 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Heading
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                    <th>
-                                        Updated On
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
+                                    <th>ID</th>
+                                    <th>Heading</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
+                                    <th>Updated On</th>
+                                    <th>Actions</th>
                                 </thead>
                                 <tbody>
-
                                     @foreach ($articles as $article)
-
                                     <tr>
                                         <td>{{ $article->id }}</td>
                                         <td>{{ $article->heading }}</td>
-                                        <td>{{ $article->status }}</td>
+                                        <td>{{ App\Models\Article::getStatusById($article->status) }}</td>
+                                        <td><img src="{{ asset($article->image) }}" alt="no-image" width="50px"></td>
                                         <td>{{ $article->updated_at->diffForHumans() }}</td>
                                         <td>
+                                            <form action="{{ route('articles.destroy', $article->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                               <button class="btn btn-danger btn-sm" type="submit"><i class="material-icons">delete</i></button> 
+                                            </form>
                                             <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm"><i class="material-icons">edit</i></a>
-                                            <a href="" class="btn btn-warning btn-sm"><i class="material-icons">delete</i></a>
                                         </td>
                                     </tr>
-                                        
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>

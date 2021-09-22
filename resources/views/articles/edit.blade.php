@@ -10,7 +10,7 @@
                         <h4 class="card-title ">Create new article</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('articles.update', $article->id) }}" method="POST">
+                        <form enctype="multipart/form-data" action="{{ route('articles.update', $article->id) }}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="form-group bmd-form-group my-5">
@@ -27,6 +27,19 @@
                                     <span class="text-danger error">{{ $errors->first('description') }}</span>
                                 @endif
                             </div>
+
+                            <div class="form-group my-5">
+                                <label>Header Image :</label>
+                               <input type="file" accept=".jpg, .png, .jpeg" class="form-control" style="opacity: 1; position: unset;" name="image" value="{{ old('image') }}">
+                                @if ($errors->has('image'))
+                                    <span class="text-danger error">{{ $errors->first('image') }}</span>
+                                @endif
+                            </div>
+
+                            <div class="d-flex w-100 justify-content-center">
+                                <img src="{{ asset($article->image) }}" alt="no-image" width="50%" class="p-4 border">
+                            </div>
+
                             <div class="form-group my-5">
                                 <label class="bmd-label-floating">Status</label>
                                 <select name="status" id="status" class="form-control">

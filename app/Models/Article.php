@@ -11,5 +11,14 @@ class Article extends Model
     const DRAFT = 1;
     const POSTED = 2;
 
+    public static function getStatusById($id)
+    {
+        if ($id == Self::DRAFT) {
+            return "DRAFT";
+        } else if ($id == Self::POSTED) {
+            return "POSTED";
+        }
+    }
+
     protected $fillable = ['heading', 'description', 'created_by', 'status'];
 }

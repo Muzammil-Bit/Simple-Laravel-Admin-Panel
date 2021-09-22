@@ -3,7 +3,7 @@
     <nav class="float-left">
       <ul>
         <li>
-          <a href="https://www.creative-tim.com">
+          <a href="#">
               {{ __('IPL Return @ 2021') }}
           </a>
         </li>
