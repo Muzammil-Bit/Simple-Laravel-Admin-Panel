@@ -5,6 +5,20 @@
     <div class="container-fluid">
       <div class="row">
         
+        @php
+        // Get the mostlikely team index
+          $results = DB::select(DB::raw("select team_id , count(*) * 100.0 / (select count(*) from ipl_predictions) as percentage from ipl_predictions group by team_id"));
+          $mostlikely = 0;
+          $team_id = 0;
+
+          foreach ($results as  $ind => $rest) {
+            if($rest->percentage > $mostlikely){
+              $team_id = $rest->team_id;
+              $mostlikely = $rest->percentage;
+            }
+          }
+        @endphp
+
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-header card-header-success card-header-icon">
@@ -16,7 +30,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">date_range</i> Last 24 Hours
+                <i class="material-icons">date_range</i> Total Number of articles
               </div>
             </div>
           </div>
@@ -60,14 +74,14 @@
           <div class="card card-stats">
             <div class="card-header card-header-info card-header-icon">
               <div class="card-icon">
-                <i class="fa fa-bat"></i>
+                <i class="material-icons">sports_cricket</i>
               </div>
-              <p class="card-category">Most Likely Teame To Win</p>
-              <h3 class="card-title">AUB</h3>
+              <p class="card-category">Most Likely Team To Win</p>
+              <h3 class="card-title">{{ App\Models\IplPrediction::where('team_id', $team_id)->first()->team_name }}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">update</i> Just Updated
+                <i class="material-icons">sports_cricket</i> Based on users answers
               </div>
             </div>
           </div>
@@ -92,15 +106,17 @@
                 </thead>
                 <tbody>
                   @php
-                    $answers = App\Models\IplPrediction::get();
+                    $answers = App\Models\IplPrediction::take(10)->get();
                   @endphp
-                  @foreach ($answers as $index => $ans)
+                  @forelse ($answers as $index => $ans)
                     <tr>
                       <td>{{ $index + 1 }}</td>
                       <td>{{ $ans->team_name }}</td>
                       <td>{{ $ans->team_id }}</td>
                     </tr>
-                  @endforeach
+                    @empty
+                    <td colspan="3" class="text-center">Nothing found</td>
+                  @endforelse
                 </tbody>
               </table>
             </div>

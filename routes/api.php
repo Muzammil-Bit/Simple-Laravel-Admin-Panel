@@ -25,4 +25,8 @@ Route::group(['middleware' => 'ensure.request.is.from.app'], function () {
     Route::get('/articles/{article_id}', [ArticleController::class, 'show']);
 
     Route::post('/polls', [PollsController::class, 'index']);
+    Route::get('/polls', [PollsController::class, 'getAnswers']);
+
+    Route::post('/polls/today', [PollsController::class, 'storeToday']);
+    Route::get('/polls/today', [PollsController::class, 'getToday']);
 });
